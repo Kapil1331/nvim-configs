@@ -30,9 +30,9 @@ set_keymap("<", "<><Left>")
 vim.cmd("runtime plugin/.cscope_maps.vim")
 vim.cmd('colorscheme torte')
 
-vim.opt.tabstop = 6
-vim.opt.shiftwidth = 6
-vim.opt.softtabstop = 6 
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4 
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -43,3 +43,5 @@ vim.cmd("highlight CursorLine guibg=#31363F ctermbg=237")
 
 vim.cmd("highlight CursorLineNr guifg=#FF69B4 ctermfg=201 cterm=none gui=none")
 vim.cmd("highlight LineNr guifg=#FF7F7F ctermfg=210")
+
+vim.cmd("hi link markdownError Normal")
