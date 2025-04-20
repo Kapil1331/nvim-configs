@@ -1,3 +1,6 @@
+require("paq")({
+    "savq/paq-nvim"
+})
 vim.wo.number = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.clipboard:append('unnamedplus')
@@ -33,6 +36,7 @@ vim.cmd('colorscheme torte')
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4 
+vim.opt.expandtab = true
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -45,3 +49,6 @@ vim.cmd("highlight CursorLineNr guifg=#FF69B4 ctermfg=201 cterm=none gui=none")
 vim.cmd("highlight LineNr guifg=#FF7F7F ctermfg=210")
 
 vim.cmd("hi link markdownError Normal")
+
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
+vim.opt.mouse = "a"
