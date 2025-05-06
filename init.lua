@@ -44,7 +44,6 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.cmd("highlight CursorLine cterm=none")
 vim.cmd("highlight CursorLine guibg=#31363F ctermbg=237")
-
 vim.cmd("highlight CursorLineNr guifg=#FF69B4 ctermfg=201 cterm=none gui=none")
 vim.cmd("highlight LineNr guifg=#FF7F7F ctermfg=210")
 
@@ -52,3 +51,6 @@ vim.cmd("hi link markdownError Normal")
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
 vim.opt.mouse = "a"
+
+vim.keymap.set('n', '<C-Up>', '5k', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-Down>', '5j', { noremap = true, silent = true })
