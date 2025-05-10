@@ -1,6 +1,51 @@
 require("paq")({
-    "savq/paq-nvim"
+    "savq/paq-nvim",
+    "neovim/nvim-lspconfig",
+    "hrsh7th/nvim-cmp",            -- Completion plugin
+    "hrsh7th/cmp-nvim-lsp",        -- LSP source for nvim-cmp
+    "hrsh7th/cmp-buffer",          -- Buffer source for nvim-cmp
+    "hrsh7th/cmp-path",            -- Path source for nvim-cmp
+    "L3MON4D3/LuaSnip",            -- Snippet engine
+    "saadparwaiz1/cmp_luasnip",    -- Snippet source for nvim-cmp})
 })
+
+local lspconfig = require("lspconfig")
+local lsps = { "clangd" }
+
+for _, lsp in pairs(lsps) do
+    local setup = {}
+    lspconfig[lsp].setup(setup)
+end
+
+local cmp = require("cmp")
+
+cmp.setup({
+    completion = {
+        autocomplete = false,
+        completeopt = "menu,menuone,noinsert,noselect",
+        keyword_length = 2,
+    },
+    mapping = {
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-e>"] = cmp.mapping.close(),
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<C-n>"] = cmp.mapping.select_next_item(),
+        ["<C-p>"] = cmp.mapping.select_prev_item(),
+    },
+    sources = {
+        { name = "nvim_lsp" },
+    },
+    formatting = {
+        format = function(_, vim_item)
+            return vim_item
+        end,
+    },
+})
+
+vim.g.mapleader = " "
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { noremap = true, silent = true })
+
+-- --------------------------------------------------------------------------------
 vim.wo.number = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.clipboard:append('unnamedplus')
@@ -14,12 +59,7 @@ vim.api.nvim_create_user_command('Q', 'q', {})
 vim.api.nvim_create_user_command('W', 'w', {})
 vim.api.nvim_create_user_command('WQ', 'wq', {})
 vim.api.nvim_create_user_command('Wq', 'wq', {})
-vim.api.nvim_set_keymap(
-  'i',                     
-  '{',                     
-  '{<CR>}<Esc>ko',        
-  { noremap = true, silent = true } 
-)
+
 local function set_keymap(lhs, rhs)
 	vim.api.nvim_set_keymap('i', lhs, rhs, { noremap = true, silent = true })
 end
@@ -27,8 +67,8 @@ set_keymap("'", "''<Left>")
 set_keymap('"', '""<Left>')
 set_keymap("(", "()<Left>")
 set_keymap("[", "[]<Left>")
-set_keymap("{", "{<CR>}<Esc>ko")
 set_keymap("<", "<><Left>")
+set_keymap("{", "{}<Left>")
 
 vim.cmd("runtime plugin/.cscope_maps.vim")
 vim.cmd('colorscheme torte')
@@ -41,6 +81,7 @@ vim.opt.expandtab = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
 vim.opt.cursorline = true
 vim.cmd("highlight CursorLine cterm=none")
 vim.cmd("highlight CursorLine guibg=#31363F ctermbg=237")
@@ -52,5 +93,5 @@ vim.cmd("hi link markdownError Normal")
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
 vim.opt.mouse = "a"
 
-vim.keymap.set('n', '<C-Up>', '5k', { noremap = true, silent = true })
-vim.keymap.set('n', '<C-Down>', '5j', { noremap = true, silent = true })
+vim.keymap.set({'n','v'}, '<C-Up>', '3k', { noremap = true, silent = true })
+vim.keymap.set({'n','v'}, '<C-Down>', '3j', { noremap = true, silent = true })
