@@ -34,6 +34,7 @@ cmp.setup({
     },
     sources = {
         { name = "nvim_lsp" },
+        { name = "luasnip" },
     },
     formatting = {
         format = function(_, vim_item)
@@ -63,8 +64,6 @@ vim.api.nvim_create_user_command('Wq', 'wq', {})
 local function set_keymap(lhs, rhs)
 	vim.api.nvim_set_keymap('i', lhs, rhs, { noremap = true, silent = true })
 end
-set_keymap("'", "''<Left>")
-set_keymap('"', '""<Left>')
 set_keymap("(", "()<Left>")
 set_keymap("[", "[]<Left>")
 set_keymap("<", "<><Left>")
@@ -72,6 +71,7 @@ set_keymap("{", "{}<Left>")
 
 vim.cmd("runtime plugin/.cscope_maps.vim")
 vim.cmd('colorscheme torte')
+-- vim.cmd('colorscheme slate')
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -80,18 +80,22 @@ vim.opt.expandtab = true
 
 vim.opt.number = true
 vim.opt.relativenumber = true
-
-vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
+vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
+
+vim.cmd("highlight Visual ctermbg=242 guibg=#3e4452 guifg=NONE gui=NONE")
+vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
 vim.cmd("highlight CursorLine cterm=none")
 vim.cmd("highlight CursorLine guibg=#31363F ctermbg=237")
 vim.cmd("highlight CursorLineNr guifg=#FF69B4 ctermfg=201 cterm=none gui=none")
 vim.cmd("highlight LineNr guifg=#FF7F7F ctermfg=210")
-
 vim.cmd("hi link markdownError Normal")
+vim.cmd("set linebreak")
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
 vim.opt.mouse = "a"
 
 vim.keymap.set({'n','v'}, '<C-Up>', '3k', { noremap = true, silent = true })
 vim.keymap.set({'n','v'}, '<C-Down>', '3j', { noremap = true, silent = true })
+vim.keymap.set('i', '<C-e>', '<Esc>A', { noremap = true, silent = true })
+vim.keymap.set('i', '<C-a>', '<Esc>I', { noremap = true, silent = true })
